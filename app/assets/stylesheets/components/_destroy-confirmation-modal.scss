@@ -1,0 +1,39 @@
+.modal-confirmation-destroy {
+  border: solid black;
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+  background: white;
+}
+
+.close-modal p {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right !important;
+  padding: 4px 8px 0px 0px;
+  margin: 0px !important;
+  color: black !important;
+}
+
+.message-confirmation-destroy p {
+  text-align: center !important;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px;
+  color: black !important;
+}
+
+.select-confirmation-destroy {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.details-frequency p {
+  text-align: center !important;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+  margin: 0px;
+  color: #6c757d !important;
+}

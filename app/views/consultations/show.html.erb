@@ -1,175 +1,198 @@
-<div class="container-sm show-consultation">
 
-  <%# Button to edit the consultation date - START %>
-  <div class="" data-controller="edit">
-    <div>
-      <button class="btn btn-submit" data-action="click->edit#displayForm">Modifier la date de consultation</button>
+<div class="show-consultation">
+  <div class="consultation-card">
+    <div class="back-arrow">
+      <% if params[:patient_id].nil?  %>
+        <%= link_to consultations_path do %>
+          <%= image_tag "icones/retour.svg" %>
+        <% end %>
+      <% else  %>
+        <%= link_to patient_path(params[:patient_id]) do %>
+          <%= image_tag "icones/retour.svg" %>
+        <% end %>
+      <% end  %>
     </div>
-
-    <div class="d-none" data-edit-target="form">
-      <%= simple_form_for @consultation do |f| %>
-
-        <div class="consultation_new">
-          <%= f.input :start_date, label: "Date & heure", placeholder: " ",
-                      as: :datetime,
-                      html5: true,
-                      label: false,
-                      required: false,
-                      wrapper_html: { class:" datefield-without-calendar"},
-                      input_html: { class:"input" },
-                      label_html: { class:"user-label" } %>
+    <div class="patient-information-icon">
+      <%= link_to patient_path(@consultation.patient) do %>
+        <div class="information-btn">
+          <%= image_tag "icones/informations-white-btn.svg" %>
         </div>
-
-        <div class="d-flex justify-content-center">
-          <%= f.button :submit, "Confirmer le changement", class: "btn btn-submit" %>
-        </div>
-
       <% end %>
     </div>
-  </div>
-
-  <%# Button to edit the consultation date - END %>
-
-  <%= link_to patient_path(@consultation.patient) do %>
-    <div class="card-consult">
-      <div class="card-consult-header">
-        <%= image_tag "avatar_homme.svg" %>
-        <div class="card-info">
-          <div class="card-patient-name">
-            <%= @consultation.patient.first_name %>  <%= @consultation.patient.last_name %>
-          </div>
-          <div class="info-adresse">
-            <i class="fa-solid fa-location-dot"></i>
-            <div class="text-adresse"><%= @consultation.patient.address %></div>
-          </div>
-          <div class="text-date"><%=l(@consultation.start_date, format: "%A %d %b %H:%M")%></div>
-        </div>
+    <div class="destroy-consultation" data-controller="modal-confirmation-to-destroy">
+      <div class="destroy-btn" data-action="click->modal-confirmation-to-destroy#displayModal">
+        <i class="fa-regular fa-trash-can"></i>
       </div>
-      <div class="card-traitement">
-      </div>
-    </div>
-  <% end %>
-
-  <%# Button to edit the nurse in charge of the consultation %>
-  <div data-controller="edit">
-    <div>
-      <button class="btn btn-submit" data-action="click->edit#displayFormNurse">Modifier l'infirmier assigné</button>
+      <%# modal displayed when btn "destroy-btn" is clicked %>
+      <%= render "shared/destroy_confirmation_modal",
+        path: consultation_path(@consultation),
+        message_confirmation: "Voulez-vous supprimer la consultation?",
+        recurring: @recurring,
+        message_confirmation_récurrence: "Voulez-vous supprimer toutes les consultations régulière?",
+        message_frequency: @frequency_message,
+        group_path: @group_path %>
     </div>
 
-    <div class="d-none" data-edit-target="formNurse">
-      <%= simple_form_for @consultation do |f| %>
+    <div class="card-info">
+      <div class="card-patient-name-consultation">
+        <h6><%= @consultation.patient.first_name %></h6>
+        <h1><%= @consultation.patient.last_name.upcase %></h1>
+      </div>
 
-        <div class="consultation_new">
-          <%= f.input :user_id,
+      <div class="consultation-details-patient">
+        <%# click to edit the nurse in charge of the consultation - START %>
+        <div class="infirmier" data-controller="edit">
+          <p data-action="click->edit#displayFormNurse"><i class="fa-solid fa-user-nurse"></i> <%= @consultation.user.first_name %>  <%= @consultation.user.last_name %></p>
+          <div class="modal-container d-none" data-edit-target="formNurse">
+            <div class="consultation-edit-nurse-form">
+              <p class="consultation-edit-close-modal" data-action="click->edit#displayFormNurse">X</p>
+              <p class="consultation-edit-nurse-text-information">Sélectionner le nouvel infirmier</p>
+              <%= simple_form_for @consultation do |f| %>
+                <div class="consultation_new">
+                  <%= f.input :user_id,
                       collection: @users_of_team,
-                      label: " Infirmier(e) ",
+                      label: false,
                       label_method: :display_full_name,
                       value_method: :id %>
+                </div>
+                <div class="d-flex justify-content-center" data-action="click->edit#displayFormNurse">
+                  <%= f.button :submit, "Confirmer le changement", class: "btn btn-submit", id: "btn-confirm-edit-nurse-consultation" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
-
-        <div class="d-flex justify-content-center">
-          <%= f.button :submit, "Confirmer le changement", class: "btn btn-submit" %>
+        <%# click to edit the nurse in charge of the consultation - End %>
+        <div class="info-adresse">
+          <i class="fa-solid fa-location-dot"></i>
+          <div class="text-adresse">
+            <%= @consultation.patient.address %>
+          </div>
         </div>
-
-      <% end %>
-    </div>
-  </div>
-
-  <% @consultation.treatments.each do |treatment| %>
-    <i class="fal fa-ball-pile"></i>
-    <div id="checkbox-custom" class="checkbox-container">
-      <div class="checkbox-wrapper">
-        <div class="d-flex">
-          <% case treatment.category  %>
-          <% when "Injection" %>
-            <%= image_tag "picto-categories/picto-injection.svg" %>
-          <% when "Pansement" %>
-            <%= image_tag "picto-categories/picto-pansement.svg" %>
-          <% when "Prélèvement" %>
-            <%= image_tag "picto-categories/picto-prelevement.svg" %>
-          <% when "Perfusion" %>
-            <%= image_tag "picto-categories/picto-perfusion.svg" %>
-          <% when "Hygiène" %>
-            <%= image_tag "picto-categories/picto-hygiene.svg" %>
-          <% when "Aide\ domicile" %>
-            <%= image_tag "picto-categories/picto-domicile.svg" %>
-          <% when "Médicament" %>
-            <%= image_tag "picto-categories/picto-medicament.svg" %>
-          <% when "Diabétique" %>
-            <%= image_tag "picto-categories/picto-diabete.svg" %>
-          <% when "Autre" %>
-            <%= image_tag "picto-categories/picto-nurse.svg" %>
-          <% end %>
-          <p class="p-3"><%= treatment.content %></p>
+        <%# click to edit the consultation date - START %>
+        <div class="text-date" data-controller="edit">
+          <p data-action="click->edit#displayFormDate"><%=l(@consultation.start_date, format: "%A %d %b %H:%M")%></p>
+          <div class="modal-container d-none" data-edit-target="formDate">
+            <div class="consultation-edit-date-form">
+              <p class="consultation-edit-close-modal" data-action="click->edit#displayFormDate">X</p>
+              <p class="consultation-edit-date-text-information">Sélectionner la nouvelle date</p>
+              <%= simple_form_for @consultation do |f| %>
+                <div class="consultation_new">
+                  <%= f.input :start_date, label: "Date & heure", placeholder: " ",
+                        as: :datetime,
+                        html5: true,
+                        label: false,
+                        required: false,
+                        wrapper_html: { class:" datefield-without-calendar"},
+                        input_html: { class:"input" },
+                        label_html: { class:"user-label" } %>
+                </div>
+                <div class="d-flex justify-content-center" data-action="click->edit#displayFormDate">
+                  <%= f.button :submit, "Confirmer le changement", class: "btn btn-submit" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <div class="check d-flex align-items-center" data-controller="form">
+            </div>
+            <%# click to edit the consultation date - END %>
+          </div>
+      </div>
+  <%# <div class="card-traitement"> %>
 
 
-          <%= simple_form_for treatment, url: treatment_path(treatment), html: { data: { controller: "form", 'turbo-method': :patch } } do |f| %>
-            <%= f.input :done, as: :boolean, label: false, input_html: { data: { action: "change->form#submit" } }%>
-          <% end %>
+  <div class="consultation-soin">
+    <h2>SOINS À PRODIGUER</h2>
+    <% @consultation.treatments.each do |treatment| %>
+      <i class="fal fa-ball-pile"></i>
+      <div id="consultation-card-soin" class="checkbox-container">
+        <div class="checkbox-wrapper">
+          <div class="d-flex">
+            <% case treatment.category  %>
+            <% when "INJECTION" %>
+              <%= image_tag "soins/injection.svg", class: "icones-soins" %>
+            <% when "PANSEMENT" %>
+              <%= image_tag "soins/pansement.svg", class: "icones-soins" %>
+            <% when "PRELEVEMENT" %>
+              <%= image_tag "soins/prelevement.svg", class: "icones-soins" %>
+            <% when "PERFUSION" %>
+              <%= image_tag "soins/perfusion.svg", class: "icones-soins" %>
+            <% when "HYGIENE" %>
+              <%= image_tag "soins/hygiene.svg", class: "icones-soins" %>
+            <% when "SONDAGE" %>
+              <%= image_tag "soins/aide.svg", class: "icones-soins" %>
+            <% when "MEDICAMENT" %>
+              <%= image_tag "soins/medicament.svg", class: "icones-soins" %>
+            <% when "DIABETE" %>
+              <%= image_tag "soins/diabete.svg", class: "icones-soins" %>
+            <% when "AUTRE" %>
+              <%= image_tag "soins/autre.svg", class: "icones-soins" %>
+            <% end %>
+            <div class="card-soin-text">
+              <p class="card-soin-categorie"><%= treatment.category %></p>
+              <p class="card-soin-contenu"><%= treatment.content %></p>
+            </div>
+          </div>
 
+          <div class="check d-flex align-items-center" data-controller="form">
+            <%= simple_form_for treatment, url: treatment_path(treatment), html: { data: { controller: "form", 'turbo-method': :patch } } do |f| %>
+              <%= f.input :done, as: :boolean, label: false, input_html: { data: { action: "change->form#submit" } }%>
+            <% end %>
 
-          <%# Edit treament icon - START %>
-          <%= link_to edit_treatment_path(treatment), class:"p-2" do %>
-            <i class='fa-solid fa-pen-to-square'></i>
-          <% end %>
-          <%# Edit treament icon - END %>
+            <%# Edit treament icon - START %>
+            <%= link_to edit_treatment_path(treatment) do %>
+              <i class='fa-solid fa-pen-to-square'></i>
+            <% end %>
+            <%# Edit treament icon - END %>
 
-          <%# Delete treament icon - START %>
-          <%= link_to treatment_path(treatment), data: {turbo_method: :delete, turbo_confirm: "Supprimer ?"} do %>
-            <i class="fa-solid fa-trash"></i>
-          <% end %>
-          <%# Delete treament icon - END %>
-
-
+          </div>
         </div>
       </div>
+    <% end %>
+
+    <div id="consultation-card-add-soin">
+    <%= link_to new_consultation_treatment_path(@consultation) do%>
+      <h2>+</h2>
+    <% end %>
     </div>
-  <% end %>
-
-  <%= link_to "Ajouter un soin", new_consultation_treatment_path(@consultation), class:"btn btn-add-treatment" %>
-
+  </div>
   <%# notes %>
 
   <%# TO DO : Afficher toutes les notes créées à la consultation d'avant %>
 
-  <div class="card-note">
-    <div class="top-note">
-      <h5>Notes :</h5>
-      <% @final_notes.each do |note| %>
-        <div class="note-content"  data-controller="star">
-          <p><%= note.content %></p>
+  <div class="consultation-note">
+    <h2>NOTES</h2>
 
-          <%# New block of icons - START %>
-          <div class="d-flex align-items-center">
-            <%= link_to add_to_favorites_note_path(note), data: { turbo_method: "PATCH"}  do %>
-              <% if note.favorite == true %>
-                <i data-star-target="starIcon" data-action="click->star#changeStarClass" class="fa-solid fa-star"></i>
-              <% else %>
-                <i data-star-target="starIcon" data-action="click->star#changeStarClass" class="fa-regular fa-star"></i>
-              <% end %>
+    <% @final_notes.each do |note| %>
+      <div class="note-card"  data-controller="star">
+        <p><%= note.content %></p>
+
+        <%# New block of icones - START %>
+        <div class="d-flex align-items-center">
+          <%= link_to add_to_favorites_note_path(note), data: { turbo_method: "PATCH"}  do %>
+            <% if note.favorite == true %>
+              <i data-star-target="starIcon" data-action="click->star#changeStarClass" class="fa-solid fa-star"></i>
+            <% else %>
+              <i data-star-target="starIcon" data-action="click->star#changeStarClass" class="fa-regular fa-star"></i>
             <% end %>
+          <% end %>
 
-            <%# Edit note icon - START %>
-            <%= link_to edit_note_path(note), class:"p-2" do %>
-              <i class='fa-solid fa-pen-to-square'></i>
-            <% end %>
-            <%# Edit note icon - END %>
-
-            <%# Delete note icon - START %>
-            <%= link_to note_path(note), data: {turbo_method: :delete, turbo_confirm: "Supprimer ?"} do %>
-              <i class='fa-solid fa-trash'></i>
-            <% end %>
-            <%# Delete note icon - END %>
-          </div>
-          <%# New block of icons - END %>
-
-
+          <%# Edit note icon - START %>
+          <%= link_to edit_note_path(note) do %>
+            <i class='fa-solid fa-pen-to-square'></i>
+          <% end %>
+          <%# Edit note icon - END %>
         </div>
-      <% end %>
-      <%= link_to "Ajouter une note", new_consultation_note_path(@consultation), class:"btn btn-add"%>
-    </div>
+
+        <%# New block of icons - END %>
+
+      </div>
+    <% end %>
+
+    <%= link_to new_consultation_note_path(@consultation) do%>
+      <div class="add-note-card">
+        <p>+</p>
+      </div>
+    <% end %>
   </div>
-  <%= link_to "Fermer la consultation", consultations_path, class:"btn btn-submit" %>
 </div>

@@ -1,18 +1,41 @@
-<div class="container-add-note">
-  <div class="w-75 mt-4 h-25">
+<div class="return-bouton-treatments">
+  <%= link_to url_for(:back) do %>
+    <%= image_tag "icones/retour.svg" %>
+  <% end %>
+</div>
+
+<div class="general-div">
+
+  <h3>MODIFIER<br>LA NOTE</h3>
+
+  <div class="note-container">
     <%= simple_form_for(@note) do |f| %>
-       <%= hidden_field_tag 'consultation_id', params[:consultation_id] %>
+      <%= hidden_field_tag 'consultation_id', params[:consultation_id] %>
+      <%= f.input :content, label: "Details", placeholder: " ",
+                wrapper_html: { class:"input-groupe" },
+                input_html: { class:"input"},
+                label_html: {class:"user-label"} %>
       <%= f.input :favorite,
                   as: :radio_buttons,
                   collection: [["Permanent", true], ["Prochaine séance", false]],
-                  label: "Durée",
+                  label: "Récurrence",
                   placeholder: " ",
                   required: true %>
-      <%= f.input :content, label: "Note", placeholder: " ",
-                  wrapper_html: { class:"input-groupe" },
-                  input_html: { class:"input"},
-                  label_html: {class:"user-label"} %>
-      <%= f.button :submit, "Modifier la note", class: "btn btn-add" %>
+      <div class="d-flex justify-content-center">
+        <%= f.button :submit, "MODIFIER LA NOTE", class: "btn" %>
+      </div>
     <% end %>
+
+    <div class="destroy-element" data-controller="modal-confirmation-to-destroy">
+      <p class="btn" data-action="click->modal-confirmation-to-destroy#displayModal">SUPPRIMER LA NOTE</p>
+      <%# modal displayed when btn "SUPPRIMER LA NOTE" is clicked %>
+      <%= render "shared/destroy_confirmation_modal",
+        path: note_path(@note),
+        message_confirmation: "Voulez-vous vraiment supprimer la note?",
+        recurring: false,
+        message_confirmation_récurrence: "Voulez-vous supprimer les notes régulière?",
+        message_frequency: "note journalière",
+        group_path: "#" %>
+    </div>
   </div>
 </div>

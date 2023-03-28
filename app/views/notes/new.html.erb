@@ -1,18 +1,27 @@
-<div class="container-add-note">
-  <div class="w-75 mt-4 h-25">
+<div class="return-bouton-treatments">
+  <%= link_to url_for(:back) do %>
+    <%= image_tag "icones/retour.svg" %>
+  <% end %>
+</div>
+
+<div class="general-div">
+
+  <h3>AJOUTER UNE NOTE</h3>
+
+  <div class="note-container">
     <%= simple_form_for(@note) do |f| %>
-       <%= hidden_field_tag 'consultation_id', params[:consultation_id] %>
+      <%= hidden_field_tag 'consultation_id', params[:consultation_id] %>
+      <%= f.input :content, label: "Details", placeholder: " ",
+                wrapper_html: { class:"input-groupe" },
+                input_html: { class:"input"},
+                label_html: {class:"user-label"} %>
       <%= f.input :favorite,
                   as: :radio_buttons,
                   collection: [["Permanent", true], ["Prochaine séance", false]],
-                  label: "Durée",
+                  label: "Récurrence",
                   placeholder: " ",
                   required: true %>
-      <%= f.input :content, label: "Note", placeholder: " ",
-                  wrapper_html: { class:"input-groupe" },
-                  input_html: { class:"input"},
-                  label_html: {class:"user-label"} %>
-      <%= f.button :submit, "Créer une note", class: "btn btn-add" %>
+      <%= f.button :submit, "AJOUTER UNE NOTE", class: "btn" %>
     <% end %>
   </div>
 </div>

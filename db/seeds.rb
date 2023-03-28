@@ -1,9 +1,16 @@
-Note.destroy_all
-Treatment.destroy_all
+puts "destroy existing consultations..."
 Consultation.destroy_all
+
+puts "destroy existing patients..."
 Patient.destroy_all
+
+puts "destroy existing Memberships..."
 Membership.destroy_all
+
+puts "destroy existing teams..."
 Team.destroy_all
+
+puts "destroy existing user..."
 User.destroy_all
 
 puts "loading users..."
@@ -11,22 +18,29 @@ thomas = User.create!(first_name: "Thomas", last_name: "Perez", email: "thomas.p
 nicolas = User.create!(first_name: "Nicolas", last_name: "Hali", email: "nicolas.hali@gmail.com", tel_number: "0628493845", password: "nicolas123")
 cecile = User.create!(first_name: "Cécile", last_name: "Lagarde", email: "cecile.lagarde@gmail.com", tel_number: "0629384756", password: "cecile123")
 
+puts "loading teams..."
+firstteam = Team.create(name: "DOM-TOM", creator: thomas, number_membership: 3, area: "La réunion")
+
+puts "loading memberships..."
+Membership.create(user: thomas, team: firstteam, email: "thomas.perez@gmail.com")
+Membership.create(user: nicolas, team: firstteam, email: "nicolas.hali@gmail.com")
+Membership.create(user: cecile, team: firstteam, email: "cecile.lagarde@gmail.com")
+
 
 puts "loading patients..."
-
 # PATIENTS
 # Patients de Thomas
 alexandre = Patient.create!(first_name: "Alexandre", last_name: "Roux", address: "12 rue du Pilori, Nantes", email: "alexandre.belhora@gmail.com", tel_number: "0635987645", ss_number: "195114400608436",
   referring_doctor: "Dr. Durand", emergency_contact_name: "Adam Boulier", emergency_contact_tel: "0642473905", birth_day: "19/11/1995", height: "185", weight: "90", blood_type: "A+", referring_user: thomas ,gender: "Homme")
+joseph = Patient.create!(first_name: "Joseph", last_name: "Blanc", address: "58 rue Jean Emile Laboureur, Nantes", email: "josephblanc@gmail.com", tel_number: "0738473745", ss_number: "197035050159412",
+    referring_doctor: "Dr. Bonnet", emergency_contact_name: "Aude Margaux", emergency_contact_tel: "0785236859", birth_day: "05/03/1997", height: "167", weight: "93.5", blood_type: "AB+", referring_user: thomas, gender: "Homme")
 catherine = Patient.create!(first_name: "Catherine", last_name: "Fermier", address: "13 place Bouffay, Nantes", email: "catherine.fermier@gmail.com", tel_number: "0639874698", ss_number: "276014493849839",
   referring_doctor: "Dr. Magret", emergency_contact_name: "Vincent Ducrot", emergency_contact_tel: "0638475647", birth_day: "18/01/1976", height: "190", weight: "87", blood_type: "B+", referring_user: thomas, gender: "Femme")
 florent = Patient.create!(first_name: "Florent", last_name: "Boucher", address: "12 rue du Régiment d'Infanterie, Nantes", email: "florent.avocat@gmail.com", tel_number: "0638473948", ss_number: "198064448743811",
   referring_doctor: "Dr. Dupont", emergency_contact_name: "Benoit Boulay", emergency_contact_tel: "0649584756", birth_day: "02/06/1998", height: "172", weight: "90", blood_type: "AB+", referring_user: thomas, gender: "Homme")
-louise = Patient.create!(first_name: "Louise", last_name: "Lambert", address: "10 avenue de Bretagne, Rezé", email: "louise.lambert@gmail.com", tel_number: "0749563745", ss_number: "208944412354901",
-    referring_doctor: "Dr. Fontaine", emergency_contact_name: "Aude Margaux", emergency_contact_tel: "0638465847", birth_day: "27/08/1994", height: "182", weight: "64", blood_type: "B-", referring_user: thomas, gender: "Femme")
+jade = Patient.create!(first_name: "Jade", last_name: "Martin", address: "22 rue du Lieutenant de Monti, Rezé", email: "jade.martin@gmail.com", tel_number: "0639460275", ss_number: "285014439422101",
+  referring_doctor: "Dr. Bonnet", emergency_contact_name: "Gabriel Boulay", emergency_contact_tel: "0649123451", birth_day: "01/01/1985", height: "176", weight: "60", blood_type: "A-", referring_user: thomas, gender: "Femme")
 
-emma = Patient.create!(first_name: "Jade", last_name: "Martin", address: "22 rue du Lieutenant de Monti, Rezé", email: "emma.martin@gmail.com", tel_number: "0639460275", ss_number: "285014439422101",
-          referring_doctor: "Dr. Bonnet", emergency_contact_name: "Gabriel Boulay", emergency_contact_tel: "0649123451", birth_day: "01/01/1985", height: "176", weight: "60", blood_type: "A-", referring_user: thomas, gender: "Femme")
 
 # Patients de Nicolas
 simone = Patient.create!(first_name: "Simone", last_name: "Beauchamp", address: "20 Bd Saint-Aignan, Nantes", email: "simonebeauchamp@jourrapide.com", tel_number: "0798374745", ss_number: "251014412354901",
@@ -35,8 +49,8 @@ armand = Patient.create!(first_name: "Armand", last_name: "Gaulin", address: "2 
   referring_doctor: "Dr. Dupont", emergency_contact_name: "Jean Moulin", emergency_contact_tel: "0638465847", birth_day: "08/12/1975", height: "172", weight: "64", blood_type: "O+", referring_user: nicolas, gender: "Homme")
 peppin = Patient.create!(first_name: "Peppin", last_name: "Riquier", address: "6 rue Talensac, Nantes", email: "peppin.riri@gmail.com", tel_number: "0698473745", ss_number: "157097867687437",
   referring_doctor: "Dr. Fontaine", emergency_contact_name: "Maurice Louis", emergency_contact_tel: "0285236859", birth_day: "01/09/1957", height: "176", weight: "107.3", blood_type: "B+", referring_user: nicolas, gender: "Homme")
-joseph = Patient.create!(first_name: "Joseph", last_name: "Blanc", address: "58 rue Jean Emile Laboureur, Nantes", email: "josephblanc@gmail.com", tel_number: "0738473745", ss_number: "197035050159412",
-  referring_doctor: "Dr. Bonnet", emergency_contact_name: "Aude Margaux", emergency_contact_tel: "0785236859", birth_day: "05/03/1997", height: "167", weight: "93.5", blood_type: "AB+", referring_user: nicolas, gender: "Homme")
+louise = Patient.create!(first_name: "Louise", last_name: "Lambert", address: "10 avenue de Bretagne, Rezé", email: "louise.lambert@gmail.com", tel_number: "0749563745", ss_number: "208944412354901",
+    referring_doctor: "Dr. Fontaine", emergency_contact_name: "Aude Margaux", emergency_contact_tel: "0638465847", birth_day: "27/08/1994", height: "182", weight: "64", blood_type: "B-", referring_user: nicolas, gender: "Femme")
 clementine = Patient.create!(first_name: "Clementine", last_name: "Racine", address: "1 Rue Eugène Tessier, Nantes", email: "ClementineRacine@gmail.com", tel_number: "0684930275", ss_number: "283039876382667",
   referring_doctor: "Dr. Fontaine", emergency_contact_name: "Raphaël Hamou", emergency_contact_tel: "0642473905", birth_day: "05/03/1983", height: "167", weight: "63.5", blood_type: "O+", referring_user: nicolas, gender: "Femme")
 
@@ -56,400 +70,271 @@ ginette = Patient.create!(first_name: "Ginette", last_name: "Retif", address: "4
 puts "loading consultations..."
 
 # CONSULTATIONS
-# CONSULTATIONS DE THOMAS
-# consultation du jour
-cons_thomas_alexandre_today = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today} 09:00 +0200"))
-cons_thomas_catherine_today = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today} 11:00 +0200"))
-cons_thomas_florent_today = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today} 14:00 +0200"))
-cons_thomas_louise_today = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today} 16:00 +0200"))
-cons_thomas_emma_today = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today} 18:00 +0200"))
 
-# Consultations du lundi
+def create_recurring_consultations(patient, consultation, frequency)
+  recurrence_consultation = ConsultationGroup.create!(start_date: consultation.start_date, end_date: consultation.start_date.next_month.next_month.next_month, frequency: frequency)
+  consultation.recurring = true
+  consultation.consultation_group = recurrence_consultation
 
-cons_thomas_alexandre_mon = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 09:00 +0200"))
-cons_thomas_catherine_mon = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 11:00 +0200"))
-cons_thomas_florent_mon = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 14:00 +0200"))
-cons_thomas_louise_mon = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 16:00 +0200"))
-cons_thomas_emma_mon = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 18:00 +0200"))
+  frequency = 1 if recurrence_consultation.frequency == "daily"
+  frequency = 7 if recurrence_consultation.frequency == "weekly"
+  frequency = 14 if recurrence_consultation.frequency == "two weeks"
+  start_date_of_recurring_consultation = recurrence_consultation.start_date.advance(days: "+#{frequency}".to_i)
 
-# Consultations du mardi
-cons_thomas_alexandre_tue = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 09:00 +0200"))
-cons_thomas_catherine_tue = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 11:00 +0200"))
-cons_thomas_florent_tue = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 14:00 +0200"))
-cons_thomas_louise_tue = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 16:00 +0200"))
-cons_thomas_emma_tue = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 18:00 +0200"))
+  while patient.consultations.last.start_date.advance(days: "+#{frequency}".to_i).end_of_day <= recurrence_consultation.end_date.end_of_day
+    Consultation.create!(
+      patient: consultation.patient,
+      user: consultation.user,
+      duration_in_min: consultation.duration_in_min,
+      recurring: consultation.recurring,
+      consultation_group: consultation.consultation_group,
+      start_date: start_date_of_recurring_consultation
+    )
+    start_date_of_recurring_consultation = start_date_of_recurring_consultation.advance(days: "+#{frequency}".to_i)
+  end
+end
 
-# Consultations du mercredi
-cons_thomas_alexandre_wed = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 09:00 +0200"))
-cons_thomas_catherine_wed = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 11:00 +0200"))
-cons_thomas_florent_wed = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 14:00 +0200"))
-cons_thomas_louise_wed = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 16:00 +0200"))
-cons_thomas_emma_wed = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 18:00 +0200"))
+# Consultations passées (patient Alexandre, infirmier Thomas uniquement)
+cons_thomas_alexandre_past1 = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.prev_day} 07:00 +0100"))
+cons_thomas_alexandre_past2 = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.prev_day.prev_day} 09:00 +0100"))
+cons_thomas_alexandre_past3 = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.prev_day.prev_day.prev_day} 09:00 +0100"))
 
-# Consultations du jeudi
-cons_thomas_alexandre_thu = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 09:00 +0200"))
-cons_thomas_catherine_thu = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 11:00 +0200"))
-cons_thomas_florent_thu = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 14:00 +0200"))
-cons_thomas_louise_thu = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 16:00 +0200"))
-cons_thomas_emma_thu = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 18:00 +0200"))
+# Create daily consultation for Thomas'patient
 
-# Consultations du vendredi
-cons_thomas_alexandre_fri = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 09:00 +0200"))
-cons_thomas_catherine_fri = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 11:00 +0200"))
-cons_thomas_florent_fri = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 14:00 +0200"))
-cons_thomas_louise_fri = Consultation.create!(patient: louise, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 16:00 +0200"))
-cons_thomas_emma_fri = Consultation.create!(patient: emma, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 18:00 +0200"))
+# Create Alexandre's consultation
+puts "loading daily morning consultation for Alexandre..."
+
+cons_thomas_alexandre_today_morn = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today} 07:00 +0100"))
+create_recurring_consultations(alexandre, cons_thomas_alexandre_today_morn, "daily")
+
+puts "loading daily afternoon consultation for Alexandre..."
+
+cons_thomas_alexandre_today_aft = Consultation.create!(patient: alexandre, user: thomas, start_date: DateTime.parse("#{Date.today} 18:30:00 +0100"))
+create_recurring_consultations(alexandre, cons_thomas_alexandre_today_aft, "daily")
+puts "loading treatments and notes for Alexandre..."
+
+Treatment.create!(category: "DIABETE", done: true, content: "Mesure de la glycémie", consultation: cons_thomas_alexandre_past1)
+
+alexandre.consultations.each do |consultation|
+  Treatment.create!(category: "DIABETE", done: false, content: "Mesure de la glycémie", consultation: consultation)
+  Treatment.create!(category: "DIABETE", done: false, content: "Injection d'insuline", consultation: consultation)
+  Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: consultation)
+end
+
+# Create catherine's consultation
+puts "loading daily morning consultation for Catherine..."
+
+cons_thomas_catherine_today_morn = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today} 10:00 +0100"))
+create_recurring_consultations(catherine, cons_thomas_catherine_today_morn, "daily")
+
+puts "loading daily afternoon consultation for Catherine..."
+
+cons_thomas_catherine_today_aft = Consultation.create!(patient: catherine, user: thomas, start_date: DateTime.parse("#{Date.today} 14:30 +0100"))
+create_recurring_consultations(catherine, cons_thomas_catherine_today_aft, "daily")
+
+puts "loading treatments and notes for Catherine..."
+
+catherine.consultations.each do |consultation|
+  Treatment.create!(category: "HYGIENE", done: false, content: "Aide à la douche", consultation: consultation)
+  Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: false, creation_consultation: consultation)
+end
+
+# Create Florent's consultation
+puts "loading daily morning consultation for Florent..."
+
+cons_thomas_florent_today_morn = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today} 11:00 +0100"))
+create_recurring_consultations(florent, cons_thomas_florent_today_morn, "daily")
+
+puts "loading daily afternoon consultation for Florent..."
+
+cons_thomas_florent_today_aft = Consultation.create!(patient: florent, user: thomas, start_date: DateTime.parse("#{Date.today} 16:00 +0100"))
+create_recurring_consultations(florent, cons_thomas_florent_today_aft, "daily")
+
+puts "loading treatments and notes for Florent..."
+
+florent.consultations.each do |consultation|
+  Treatment.create!(category: "AUTRE", done: false, content: "Sondage urinaire", consultation: consultation)
+  Treatment.create!(category: "HYGIENE", done: false, content: "Toilette complète au lit", consultation: consultation)
+  Treatment.create!(category: "PANSEMENT", done: false, content: "Pansement d’escarre", consultation: consultation)
+  Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: consultation)
+end
+
+# Create Jade's consultation
+puts "loading daily morning consultation for Jade..."
+
+cons_thomas_jade_today_morn = Consultation.create!(patient: jade, user: thomas, start_date: DateTime.parse("#{Date.today} 13:00 +0100"))
+create_recurring_consultations(jade, cons_thomas_jade_today_morn, "daily")
+
+puts "loading daily afternoon consultation for Jade..."
+
+cons_thomas_jade_today_aft = Consultation.create!(patient: jade, user: thomas, start_date: DateTime.parse("#{Date.today} 20:00 +0100"))
+create_recurring_consultations(jade, cons_thomas_jade_today_aft, "daily")
+
+puts "loading treatments and notes for Jade..."
+
+jade.consultations.each do |consultation|
+  Treatment.create!(category: "AUTRE", done: false, content: "Ablation de points", consultation: consultation)
+  Note.create!(content: "Rassurer la patiente pendant la suture", favorite: false, creation_consultation: consultation)
+end
+
+# Create Joseph's consultation
+
+puts "loading consultation every other monday during three month at 08:30 for Joseph..."
+
+cons_thomas_joseph_mon_morn = Consultation.create!(patient: joseph, user: thomas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 08:30 +0100"))
+create_recurring_consultations(joseph, cons_thomas_joseph_mon_morn, "two weeks")
+
+puts "loading treatments and notes for joseph..."
+
+joseph.consultations.each do |consultation|
+  Treatment.create!(category: "INJECTION", done: false, content: "sous cutanée (EPO)", consultation: consultation)
+  Note.create!(content: "Attention chien méchant, attendre au portail", favorite: false, creation_consultation: consultation)
+end
+
+def weekly_consultations(patient, user, start_time)
+  week_days = %i[ monday tuesday wednesday thursday friday ]
+  week_days.each do |week_day|
+    Consultation.create!(patient: patient, user: user, start_date: DateTime.parse("#{Date.today.next_occurring(week_day).strftime} #{start_time} +0100"))
+  end
+end
 
 
 # CONSULTATIONS DE NICOLAS
-# Consultations du lundi
-cons_nicolas_simone_mon = Consultation.create!(patient: simone, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 09:00 +0200"))
-cons_nicolas_armand_mon = Consultation.create!(patient: armand, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 11:00 +0200"))
-cons_nicolas_peppin_mon = Consultation.create!(patient: peppin, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 14:00 +0200"))
-cons_nicolas_joseph_mon = Consultation.create!(patient: joseph, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 16:00 +0200"))
-cons_nicolas_clementine_mon = Consultation.create!(patient: clementine, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 18:00 +0200"))
 
-# Consultations du mardi
-cons_nicolas_simone_tue = Consultation.create!(patient: simone, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 09:00 +0200"))
-cons_nicolas_armand_tue = Consultation.create!(patient: armand, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 11:00 +0200"))
-cons_nicolas_peppin_tue = Consultation.create!(patient: peppin, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 14:00 +0200"))
-cons_nicolas_joseph_tue = Consultation.create!(patient: joseph, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 16:00 +0200"))
-cons_nicolas_clementine_tue = Consultation.create!(patient: clementine, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 18:00 +0200"))
+# simone
+puts "loading simone's consultations"
+weekly_consultations(simone, nicolas, "07:00")
 
-# Consultations du mercredi
-cons_nicolas_simone_wed = Consultation.create!(patient: simone, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 09:00 +0200"))
-cons_nicolas_armand_wed = Consultation.create!(patient: armand, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 11:00 +0200"))
-cons_nicolas_peppin_wed = Consultation.create!(patient: peppin, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 14:00 +0200"))
-cons_nicolas_joseph_wed = Consultation.create!(patient: joseph, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 16:00 +0200"))
-cons_nicolas_clementine_wed = Consultation.create!(patient: clementine, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 18:00 +0200"))
+# armand
+puts "loading armand's consultations"
+weekly_consultations(armand, nicolas, "08:30")
+weekly_consultations(armand, nicolas, "17:30")
 
-# Consultations du jeudi
-cons_nicolas_simone_thu = Consultation.create!(patient: simone, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 09:00 +0200"))
-cons_nicolas_armand_thu = Consultation.create!(patient: armand, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 11:00 +0200"))
-cons_nicolas_peppin_thu = Consultation.create!(patient: peppin, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 14:00 +0200"))
-cons_nicolas_joseph_thu = Consultation.create!(patient: joseph, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 16:00 +0200"))
-cons_nicolas_clementine_thu = Consultation.create!(patient: clementine, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 18:00 +0200"))
+# peppin
+puts "loading peppin's consultations"
+weekly_consultations(peppin, nicolas, "11:00")
+weekly_consultations(peppin, nicolas, "19:00")
 
-# Consultations du vendredi
-cons_nicolas_simone_fri = Consultation.create!(patient: simone, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 09:00 +0200"))
-cons_nicolas_armand_fri = Consultation.create!(patient: armand, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 11:00 +0200"))
-cons_nicolas_peppin_fri = Consultation.create!(patient: peppin, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 14:00 +0200"))
-cons_nicolas_joseph_fri = Consultation.create!(patient: joseph, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 16:00 +0200"))
-cons_nicolas_clementine_fri = Consultation.create!(patient: clementine, user: nicolas, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 18:00 +0200"))
+# louise
+puts "loading louise's consultations"
+weekly_consultations(louise, nicolas, "14:00")
 
+# clementine
+puts "loading clementine's consultations"
+weekly_consultations(clementine, nicolas, "16:00")
 
 # CONSULTATIONS DE CECILE
-# Consultations du lundi
-cons_cecile_zdenek_mon = Consultation.create!(patient: zdenek, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 09:00 +0200"))
-cons_cecile_bellamy_mon = Consultation.create!(patient: bellamy, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 11:00 +0200"))
-cons_cecile_aubrey_mon = Consultation.create!(patient: aubrey, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 14:00 +0200"))
-cons_cecile_ancelina_mon = Consultation.create!(patient: ancelina, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 16:00 +0200"))
-cons_cecile_ginette_mon = Consultation.create!(patient: ginette, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:monday).strftime} 18:00 +0200"))
+# zdenek
+puts "loading zdenek's consultations"
+weekly_consultations(zdenek, cecile, "07:00")
 
-# Consultations du mardi
-cons_cecile_zdenek_tue = Consultation.create!(patient: zdenek, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 09:00 +0200"))
-cons_cecile_bellamy_tue = Consultation.create!(patient: bellamy, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 11:00 +0200"))
-cons_cecile_aubrey_tue = Consultation.create!(patient: aubrey, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 14:00 +0200"))
-cons_cecile_ancelina_tue = Consultation.create!(patient: ancelina, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 16:00 +0200"))
-cons_cecile_ginette_tue = Consultation.create!(patient: ginette, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:tuesday).strftime} 18:00 +0200"))
+# bellamy
+puts "loading bellamy's consultations"
+weekly_consultations(bellamy, cecile, "08:30")
+weekly_consultations(bellamy, cecile, "19:30")
 
-# Consultations du mercredi
-cons_cecile_zdenek_wed = Consultation.create!(patient: zdenek, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 09:00 +0200"))
-cons_cecile_bellamy_wed = Consultation.create!(patient: bellamy, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 11:00 +0200"))
-cons_cecile_aubrey_wed = Consultation.create!(patient: aubrey, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 14:00 +0200"))
-cons_cecile_ancelina_wed = Consultation.create!(patient: ancelina, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 16:00 +0200"))
-cons_cecile_ginette_wed = Consultation.create!(patient: ginette, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:wednesday).strftime} 18:00 +0200"))
+# aubrey
+puts "loading aubrey's consultations"
+weekly_consultations(aubrey, cecile, "11:00")
+weekly_consultations(aubrey, cecile, "20:00")
 
-# Consultations du jeudi
-cons_cecile_zdenek_thu = Consultation.create!(patient: zdenek, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 09:00 +0200"))
-cons_cecile_bellamy_thu = Consultation.create!(patient: bellamy, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 11:00 +0200"))
-cons_cecile_aubrey_thu = Consultation.create!(patient: aubrey, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 14:00 +0200"))
-cons_cecile_ancelina_thu = Consultation.create!(patient: ancelina, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 16:00 +0200"))
-cons_cecile_ginette_thu = Consultation.create!(patient: ginette, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:thursday).strftime} 18:00 +0200"))
+# ancelina
+puts "loading ancelina's consultations"
+weekly_consultations(ancelina, cecile, "15:00")
+weekly_consultations(ancelina, cecile, "21:00")
 
-# Consultations du vendredi
-cons_cecile_zdenek_fri = Consultation.create!(patient: zdenek, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 09:00 +0200"))
-cons_cecile_bellamy_fri = Consultation.create!(patient: bellamy, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 11:00 +0200"))
-cons_cecile_aubrey_fri = Consultation.create!(patient: aubrey, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 14:00 +0200"))
-cons_cecile_ancelina_fri = Consultation.create!(patient: ancelina, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 16:00 +0200"))
-cons_cecile_ginette_fri = Consultation.create!(patient: ginette, user: cecile, start_date: DateTime.parse("#{Date.today.next_occurring(:friday).strftime} 18:00 +0200"))
+# ginette
+puts "loading ginette's consultations"
+weekly_consultations(ginette, cecile, "18:00")
 
+# TRAITEMENTS AND NOTES
 
-puts "loading treatments..."
-
-# TRAITEMENTS
-
-# Patients de Thomas :
-
-# Alexandre - plaie à nettoyer et panser + doliprane
-# Catherine - Perfusion + Insuline
-# Florent - Prise de sang + Glucophage
-# Louise - Prise de sang
-# Emma - Points de suture
-
-# Patients de Nicolas :
-
-# Simone - plaie à nettoyer et panser + doliprane
-# Armand - Perfusion + Insuline
-# Peppin - Prise de sang + Glucophage
-# Joseph - Prise de sang
-# Clementine - Points de suture
-
-# Patients de Cécile :
-
-# Zdenek - plaie à nettoyer et panser + doliprane
-# Bellamy - Perfusion + Insuline
-# Aubrey - Prise de sang + Glucophage
-# Ancelina - Prise de sang
-# Ginette - Points de suture
-
-
-# Alexandre, Simone et Zdenek - plaie à panser et nettoyer + doliprane
-# Thomas > Alexandre
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_today)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_today)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_today)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_mon)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_mon)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_mon)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_tue)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_tue)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_tue)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_wed)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_wed)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_wed)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_thu)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_thu)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_thu)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_thomas_alexandre_fri)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_thomas_alexandre_fri)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_thomas_alexandre_fri)
+puts "loading treatments and notes..."
 
 # Nicolas > Simone
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_nicolas_simone_mon)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_nicolas_simone_mon)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_nicolas_simone_mon)
+puts "loading treatments and notes for Simone..."
 
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_nicolas_simone_tue)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_nicolas_simone_tue)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_nicolas_simone_tue)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_nicolas_simone_wed)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_nicolas_simone_wed)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_nicolas_simone_wed)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_nicolas_simone_thu)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_nicolas_simone_thu)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_nicolas_simone_thu)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_nicolas_simone_fri)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_nicolas_simone_fri)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_nicolas_simone_fri)
+simone.consultations.each do |consultation|
+  Treatment.create!(category: "PANSEMENT", done: false, content: "Renouveler le pansement", consultation: consultation)
+  Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: consultation)
+end
 
 # Cécile > Zdenek
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_cecile_zdenek_mon)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_cecile_zdenek_mon)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_cecile_zdenek_mon)
+puts "loading treatments and notes for Zdenek..."
 
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_cecile_zdenek_tue)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_cecile_zdenek_tue)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_cecile_zdenek_tue)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_cecile_zdenek_wed)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_cecile_zdenek_wed)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_cecile_zdenek_wed)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_cecile_zdenek_thu)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_cecile_zdenek_thu)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_cecile_zdenek_thu)
-
-Treatment.create!(category: "Pansement", done: false, content: "Renouveler le pansement", consultation: cons_cecile_zdenek_fri)
-Treatment.create!(category: "Hygiène", done: false, content: "Nettoyer la plaie", consultation: cons_cecile_zdenek_fri)
-Treatment.create!(category: "Médicament", done: false, content: "Administrer 2mg de doliprane", consultation: cons_cecile_zdenek_fri)
-
-
-# Catherine, Armand, Bellamy - Perfusion + Insuline
-# Thomas > Catherine
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_today)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_today)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_mon)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_mon)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_tue)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_tue)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_wed)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_wed)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_thu)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_thu)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_thomas_catherine_fri)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_thomas_catherine_fri)
+zdenek.consultations.each do |consultation|
+  Treatment.create!(category: "PANSEMENT", done: false, content: "Renouveler le pansement", consultation: consultation)
+  Treatment.create!(category: "HYGIENE", done: false, content: "Nettoyer la plaie", consultation: consultation)
+  Treatment.create!(category: "MEDICAMENT", done: false, content: "Administrer 2mg de doliprane", consultation: consultation)
+  Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: consultation)
+end
 
 # Nicolas > Armand
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_nicolas_armand_mon)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_nicolas_armand_mon)
+puts "loading treatments and notes for Armand..."
 
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_nicolas_armand_tue)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_nicolas_armand_tue)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_nicolas_armand_wed)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_nicolas_armand_wed)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_nicolas_armand_thu)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_nicolas_armand_thu)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_nicolas_armand_fri)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_nicolas_armand_fri)
+armand.consultations.each do |consultation|
+  Treatment.create!(category: "PERFUSION", done: false, content: "Poser la perfusion", consultation: consultation)
+  Treatment.create!(category: "INJECTION", done: false, content: "Injecter 12 mg d'insuline", consultation: consultation)
+  Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: false, creation_consultation: consultation)
+end
 
 # Cécile > Bellamy
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_cecile_bellamy_mon)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_cecile_bellamy_mon)
+puts "loading treatments and notes for Bellamy..."
 
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_cecile_bellamy_tue)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_cecile_bellamy_tue)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_cecile_bellamy_wed)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_cecile_bellamy_wed)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_cecile_bellamy_thu)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_cecile_bellamy_thu)
-
-Treatment.create!(category: "Perfusion", done: false, content: "Poser la perfusion", consultation: cons_cecile_bellamy_fri)
-Treatment.create!(category: "Injection", done: false, content: "Injecter 12 mg d'insuline", consultation: cons_cecile_bellamy_fri)
-
-
-# Florent, Peppin, Aubrey - Prise de sang + Glucophage
-# Thomas > Florent
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_today)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_today)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_mon)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_mon)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_tue)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_tue)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_wed)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_wed)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_thu)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_thu)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_florent_fri)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_thomas_florent_fri)
+bellamy.consultations.each do |consultation|
+  Treatment.create!(category: "AUTRE", done: false, content: "Pose alimentation parentéral", consultation: consultation)
+  Treatment.create!(category: "HYGIENE", done: false, content: "aide à la douche", consultation: consultation)
+  Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: false, creation_consultation: consultation)
+end
 
 # Nicolas > Peppin
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_peppin_mon)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_nicolas_peppin_mon)
+puts "loading treatments and notes for Peppin..."
 
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_peppin_tue)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_nicolas_peppin_tue)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_peppin_wed)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_nicolas_peppin_wed)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_peppin_thu)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_nicolas_peppin_thu)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_peppin_fri)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_nicolas_peppin_fri)
+peppin.consultations.each do |consultation|
+  Treatment.create!(category: "PRELEVEMENT", done: false, content: "Prélever 5ml de sang", consultation: consultation)
+  Treatment.create!(category: "DIABETE", done: false, content: "Administrer 10mg de Glucophage", consultation: consultation)
+  Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: consultation)
+end
 
 # Cécile > Aubrey
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_aubrey_mon)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_cecile_aubrey_mon)
+puts "loading treatments and notes for Aubrey..."
 
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_aubrey_tue)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_cecile_aubrey_tue)
+aubrey.consultations.each do |consultation|
+  Treatment.create!(category: "PRELEVEMENT", done: false, content: "Prélever 5ml de sang", consultation: consultation)
+  Treatment.create!(category: "DIABETE", done: false, content: "Administrer 10mg de Glucophage", consultation: consultation)
+  Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: consultation)
+end
 
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_aubrey_wed)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_cecile_aubrey_wed)
+# Nicolas > Louise
+puts "loading treatments and notes for Louise..."
 
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_aubrey_thu)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_cecile_aubrey_thu)
-
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_aubrey_fri)
-Treatment.create!(category: "Diabétique", done: false, content: "Administrer 10mg de Glucophage", consultation: cons_cecile_aubrey_fri)
-
-
-
-# Louise, Joseph, Ancelina - Prise de sang
-# Thomas > Louise
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_today)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_mon)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_tue)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_wed)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_thu)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_thomas_louise_fri)
-
-# Nicolas > Joseph
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_joseph_mon)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_joseph_tue)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_joseph_wed)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_joseph_thu)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_nicolas_joseph_fri)
+louise.consultations.each do |consultation|
+  Treatment.create!(category: "AUTRE", done: false, content: "Surveillance des constantes", consultation: consultation)
+  Note.create!(content: "Attention chien méchant, attendre au portail", favorite: false, creation_consultation: consultation)
+end
 
 # Cécile > Ancelina
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_ancelina_mon)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_ancelina_tue)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_ancelina_wed)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_ancelina_thu)
-Treatment.create!(category: "Prélèvement", done: false, content: "Prélever 5ml de sang", consultation: cons_cecile_ancelina_fri)
+puts "loading treatments and notes for Ancelina..."
 
-
-# Emma, Clémentine, Ginette - Points de suture
-# Thomas > Emma
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_today)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_mon)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_tue)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_wed)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_thu)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_thomas_emma_fri)
+ancelina.consultations.each do |consultation|
+  Treatment.create!(category: "PRELEVEMENT", done: false, content: "Prélever 5ml de sang", consultation: consultation)
+  Note.create!(content: "Attention chien méchant, attendre au portail", favorite: false, creation_consultation: consultation)
+end
 
 # Nicolas > Clémentine
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_nicolas_clementine_mon)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_nicolas_clementine_tue)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_nicolas_clementine_wed)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_nicolas_clementine_thu)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_nicolas_clementine_fri)
+puts "loading treatments and notes for Clémentine..."
+
+clementine.consultations.each do |consultation|
+  Treatment.create!(category: "PERFUSION", done: false, content: "hydratation sous cutanée", consultation: consultation)
+  Note.create!(content: "Rassurer la patiente pendant la suture", favorite: false, creation_consultation: consultation)
+end
 
 # Cécile > Ginette
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_cecile_ginette_mon)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_cecile_ginette_tue)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_cecile_ginette_wed)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_cecile_ginette_thu)
-Treatment.create!(category: "Autre", done: false, content: "Poser 4 points de suture", consultation: cons_cecile_ginette_fri)
+puts "loading treatments and notes for Ginette..."
 
-
-puts "loading notes..."
-
-# NOTES
-# Notes des consultations de Thomas
-note_alexandre = Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: cons_thomas_alexandre_mon)
-note_catherine = Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: true, creation_consultation: cons_thomas_catherine_mon)
-note_florent = Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: cons_thomas_florent_mon)
-note_louise = Note.create!(content: "Attention chien méchant, attendre au portail", favorite: true, creation_consultation: cons_thomas_louise_mon)
-note_emma = Note.create!(content: "Rassurer la patiente pendant la suture", favorite: true, creation_consultation: cons_thomas_emma_mon)
-
-# Notes des consultations de Nicolas
-note_simone = Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: cons_nicolas_simone_mon)
-note_armand = Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: true, creation_consultation: cons_nicolas_armand_mon)
-note_peppin = Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: cons_nicolas_peppin_mon)
-note_joseph = Note.create!(content: "Attention chien méchant, attendre au portail", favorite: true, creation_consultation: cons_nicolas_joseph_mon)
-note_clementine = Note.create!(content: "Rassurer la patiente pendant la suture", favorite: true, creation_consultation: cons_nicolas_clementine_mon)
-
-# Notes des consultations de Cécile
-note_zdenek = Note.create!(content: "Demander au médecin référent une ordonnance pour médicaments", favorite: false, creation_consultation: cons_cecile_zdenek_mon)
-note_bellamy = Note.create!(content: "Patient sensible lors des piqures, rassurer et injecter délicatement", favorite: true, creation_consultation: cons_cecile_bellamy_mon)
-note_aubrey = Note.create!(content: "Lui faire penser d'appeler sa petite fille par son prénom et non par celui de sa femme", favorite: false, creation_consultation: cons_cecile_aubrey_mon)
-note_ancelina = Note.create!(content: "Attention chien méchant, attendre au portail", favorite: true, creation_consultation: cons_cecile_ancelina_mon)
-note_ginette = Note.create!(content: "Rassurer la patiente pendant la suture", favorite: true, creation_consultation: cons_cecile_ginette_mon)
+ginette.consultations.each do |consultation|
+  Treatment.create!(category: "PRELEVEMENT", done: false, content: "Prélèvement sanguin", consultation: consultation)
+  Note.create!(content: "Rassurer la patiente pendant la suture", favorite: false, creation_consultation: consultation)
+end
 
 puts "End of seeds!"

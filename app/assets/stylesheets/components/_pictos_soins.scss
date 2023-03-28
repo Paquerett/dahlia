@@ -18,66 +18,112 @@
   cursor: pointer;
   box-sizing: border-box;
   width: 100%;
-  font-size: 14px;
+  font-size: 8px;
   text-align: center;
   font-weight: 600;
-  padding: 60px 10px 10px 10px;
+  padding: 72px 15px 15px 10px;
   border: 1px solid #EAEAEA;
-  border-radius: 4px;
   background-color: white;
-  margin-top: 10px;
-  border-radius: 20px;
+  margin-bottom: 15px;
+  border-radius: 35px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .category-selector:checked + label {
-  color: $oxford-blue !important;
+  color: white !important;
 }
 
 
 .treatment_category + label {
-  color: $oxford-blue;
-  background-size: 30%;
+  color: $grey-typo;
+  background-size: 50%;
   background-repeat: no-repeat;
   background-position: 50% 25%;
+  border: solid 1px $grey !important;
+  font-family: $headers-font;
 }
 
 #treatment_category_pansement + label {
-  background-image: asset-url("picto-categories/picto-pansement.svg");
+  background-image: asset-url("soins/pansement.svg");
 }
 
-#treatment_category_diabétique + label {
-  background-image: asset-url("picto-categories/picto-diabete.svg");
+#treatment_category_pansement:checked + label {
+  background-image: asset-url("soins/pansement-white.svg");
+}
+
+#treatment_category_diabete + label {
+  background-image: asset-url("soins/diabete.svg");
+}
+
+#treatment_category_diabete:checked + label {
+  background-image: asset-url("soins/diabete-white.svg");
 }
 
 #treatment_category_injection + label {
-  background-image: asset-url("picto-categories/picto-injection.svg");
+  background-image: asset-url("soins/injection.svg");
 }
 
-#treatment_category_prélèvement + label {
-  background-image: asset-url("picto-categories/picto-prelevement.svg");
+#treatment_category_injection:checked + label {
+  background-image: asset-url("soins/injection-white.svg");
+}
+
+#treatment_category_prelevement + label {
+  background-image: asset-url("soins/prelevement.svg");
+}
+
+#treatment_category_prelevement:checked + label {
+  background-image: asset-url("soins/prelevement-white.svg");
 }
 
 #treatment_category_perfusion + label {
-  background-image: asset-url("picto-categories/picto-perfusion.svg");
+  background-image: asset-url("soins/perfusion.svg");
 }
 
-#treatment_category_hygiène + label {
-  background-image: asset-url("picto-categories/picto-hygiene.svg");
+#treatment_category_perfusion:checked + label {
+  background-image: asset-url("soins/perfusion-white.svg");
 }
 
-#treatment_category_médicament + label {
-  background-image: asset-url("picto-categories/picto-medicament.svg");
+#treatment_category_hygiene + label {
+  background-image: asset-url("soins/hygiene.svg");
 }
 
-#treatment_category_aide_domicile + label {
-  background-image: asset-url("picto-categories/picto-domicile.svg");
+#treatment_category_hygiene:checked + label {
+  background-image: asset-url("soins/hygiene-white.svg");
+}
+
+#treatment_category_medicament + label {
+  background-image: asset-url("soins/medicament.svg");
+}
+
+#treatment_category_medicament:checked + label {
+  background-image: asset-url("soins/medicament-white.svg");
+}
+
+#treatment_category_sondage + label {
+  background-image: asset-url("soins/aide.svg");
+}
+
+#treatment_category_sondage:checked + label {
+  background-image: asset-url("soins/aide-white.svg");
 }
 
 #treatment_category_autre + label {
-  background-image: asset-url("picto-categories/picto-nurse.svg");
+  background-image: asset-url("soins/autre.svg");
+}
+
+#treatment_category_autre:checked + label {
+  background-image: asset-url("soins/autre-white.svg");
 }
 
 .treatment_category:checked + label {
-  background-color: #A75AA2;
-  border-color: $magnolia;
+  background-color: $grey;
+  color: white;
+}
+
+#treatment_content {
+  text-align: center !important;
+  height: 15vh !important;
+  border-radius: 25px !important;
+  font-size: 18px !important;
 }

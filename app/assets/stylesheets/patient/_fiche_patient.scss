@@ -1,23 +1,25 @@
 .patient-show-main-container {
+  background-color: $light-grey;
+  height: 100vh;
 
   .patient-show-container-top { //First tier of the page
-    height: 30vh;
 
     .back-arrow img {
       margin-top: 10px;
       margin-left: 10px;
       width: 10px;
+      margin-bottom: 4vh;
     }
 
     .patient-avatar {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px;
 
       img {
-        width: 120px;
-        border-radius: 80%;
+        width: 15vh;
+        height: 15vh;
+        border-radius: 100%;
         margin-bottom: 10px;
       }
 
@@ -31,11 +33,11 @@
         font-size: 20px;
         text-transform: uppercase;
         color: $grey-typo;
+        margin-bottom: 4vh;
       }
     }
   }
   .patient-show-container-middle { // Second tier of the page
-    padding-bottom: 10em;
 
     .nav {
       align-items: stretch;
@@ -43,7 +45,7 @@
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
       // margin-bottom: -20px;
-      height: 20px;
+      // height: 20px;
     }
     .nav-tabs .nav-link {
       border-top-left-radius: 16px;
@@ -68,6 +70,7 @@
     .patient-profile-section {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 20px;
     }
     .patient-profile-section-detail {
@@ -85,19 +88,33 @@
         color: $rose;
         font-size: 16px;
       }
+      img {
+        margin-right: 30px;
+        height: 20px;
+        width: 20px;
+      }
+
     }
     .bottom-link {
       text-align: center;
       background-color: $light-grey;
-      a {
-      text-decoration: underline;
-      color: $light-grey-typo;
-      font-size: 12px;
-      }
+      padding-top: 2vh;
+      padding-bottom: 10vh;
+      margin-bottom: -97px;
+
+        a {
+        text-decoration: underline;
+        color: $light-grey-typo;
+        font-size: 17px;
+        }
     }
 
     hr {
-      margin: 0;
+      width: 100%;
+      box-shadow: 0 10px 20px -15px #333;
+      height: 50px;
+      border: none;
+      margin: -50px auto 0px;
     }
     // This is for the right-hand part (listing of consultations)
     .consultation-card-pink {
@@ -128,5 +145,53 @@
         }
       }
     }
-}
+    .consultation-card-gray {
+      background-color: #DDDDDD;
+      height: 74px;
+      border-radius: 20px;
+      margin: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 32px;
+      margin-bottom: -16px;
+      padding: 6px;
+
+      .consultation-card-pink-date {
+        font-weight: bold;
+        font-size: 18px;
+        color: $grey-typo;
+      }
+      .consultation-card-pink-text {
+        font-size: 14px;
+        color: $grey-typo;
+        word-wrap: normal;
+
+        img {
+          width: 14px;
+        }
+      }
+    }
+    .plus-button {
+      position:absolute;
+      img {
+        width: 36px;
+        position:relative;
+        left:324px;
+      }
+    }
+    .link-ajout-consu {
+      margin: 100px;
+
+      a {
+        text-decoration: none;
+        color: white;
+        }
+    }
+  }
+
+  .burger-informations {
+    z-index: 2;
+  }
 }

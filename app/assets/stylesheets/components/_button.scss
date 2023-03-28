@@ -110,26 +110,56 @@
   align-items: center;
 }
 
+// VALIDATION DES BOUTONS
+
 .btn {
   color: white;
   font-family: "Mulish", "sans-serif";
-  border-color: #F28476;
-  width: 159px;
+  border-color: $rose;
   border-radius: 29px;
-  background-color: #F28476;
-  height: 61px;
-  padding: 0px 0px 0px 0px;
+  background-color: $rose;
+  padding: 10px 16px;
   margin: 20px;
+  letter-spacing: 4px;
 }
 
-.btn:hover {
+.btn:visited {
   color: white;
   font-family: "Mulish", "sans-serif";
-  border-color: #F28476;
-  width: 159px;
+  border-color: #e87363;
   border-radius: 29px;
-  background-color: #F28476;
-  height: 61px;
-  padding: 0px 0px 0px 0px;
+  background-color: #e87363;
+  padding: 10px 16px;
   margin: 20px;
+  letter-spacing: 4px;
 }
+
+// BACK BUTTON
+.back-black-button {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 10px;
+  margin-bottom: 4vh;
+  position: absolute;
+}
+
+.back-white-button {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 10px;
+  margin-bottom: 4vh;
+  position: absolute;
+}
+
+// btn to destroy element
+
+.destroy-element {
+  display: flex;
+  justify-content: center;
+}
+
+// btn to confirm edit nurse consultation
+
+// #btn-confirm-edit-nurse-consultation {
+//   margin-block: 0px !important
+// }

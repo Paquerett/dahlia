@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_05_125739) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_100321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_125739) do
     t.index ["creator_id"], name: "index_teams_on_creator_id"
   end
 
+  create_table "treatment_groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "frequency"
+    t.datetime "start_date"
+    t.datetime "end_date"
+  end
+
   create_table "treatments", force: :cascade do |t|
     t.string "category"
     t.string "sub_category"
@@ -95,7 +103,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_125739) do
     t.bigint "consultation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "recurring", default: false
+    t.bigint "treatment_group_id"
     t.index ["consultation_id"], name: "index_treatments_on_consultation_id"
+    t.index ["treatment_group_id"], name: "index_treatments_on_treatment_group_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,4 +133,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_125739) do
   add_foreign_key "patients", "users", column: "referring_user_id"
   add_foreign_key "teams", "users", column: "creator_id"
   add_foreign_key "treatments", "consultations"
+  add_foreign_key "treatments", "treatment_groups"
 end

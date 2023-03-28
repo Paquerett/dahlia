@@ -1,33 +1,30 @@
 <br>
 <div class="patient-profile-section" data-bs-toggle="collapse" data-bs-target="#info-perso">
-  <span>Informations personnelles</span> <i class="fa-solid fa-chevron-down"></i>
+  <span>Informations personnelles</span> <i class="fa-solid fa-chevron-down burger-informations"></i>
 </div>
 
 <div class="collapse" id="info-perso">
   <div class="patient-profile-section-detail">
     <div class="patient-profile-section-detail-item">
-      <i class="fa-solid fa-location-dot"></i><span><%= @patient.address %></span>
+      <%= image_tag "icones/pin.svg" %><span><%= @patient.address %></span>
     </div>
     <div class="patient-profile-section-detail-item">
-      <i class="fa-solid fa-phone"></i><span><%= @patient.tel_number %></span>
+      <%= image_tag "icones/phone.svg" %><span><%= @patient.tel_number %></span>
     </div>
     <div class="patient-profile-section-detail-item">
-      <i class="fa-solid fa-envelope"></i>
-      <span><%= @patient.email %></span>
+      <%= image_tag "icones/mail.svg" %><span><%= @patient.email %></span>
     </div>
     <div class="patient-profile-section-detail-item">
-      <i class="fa-solid fa-cake-candles"></i>
-      <span><%= @patient.birth_day.strftime("%d/%m/%Y") %></span>
+      <%= image_tag "icones/birth.svg" %><span><%= @patient.birth_day.strftime("%d/%m/%Y") %></span>
     </div>
     <div class="patient-profile-section-detail-item">
-      <i class="fa-solid fa-venus-mars"></i>
-      <span><%= @patient.gender %></span>
+      <%= image_tag "icones/genre.svg" %><span><%= @patient.gender %></span>
     </div>
   </div>
 </div>
 <hr>
 <div class="patient-profile-section" data-bs-toggle="collapse" data-bs-target="#info-med">
-  <span>Informations médicales</span> <i class="fa-solid fa-chevron-down"></i>
+  <span>Informations médicales</span> <i class="fa-solid fa-chevron-down burger-informations"></i>
 </div>
 
 <div class="collapse" id="info-med">
@@ -48,7 +45,7 @@
 </div>
 <hr>
 <div class="patient-profile-section" data-bs-toggle="collapse" data-bs-target="#info-emerg" >
-  <span>Contact urgence</span> <i class="fa-solid fa-chevron-down"></i>
+  <span>Contact urgence</span> <i class="fa-solid fa-chevron-down burger-informations"></i>
 </div>
 
 <div class="collapse" id="info-emerg">
@@ -68,4 +65,4 @@
   </div>
 </div>
 <hr>
-<div class="bottom-link"><a href="">Modifier les informations</a></div>
+<div class="bottom-link"><%= link_to "Modifier les informations",  edit_patient_path(@patient) %></div>

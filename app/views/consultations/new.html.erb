@@ -1,89 +1,67 @@
-<h3 class="d-flex justify-content-center mt-4 mb-3"> Informations sur la consultation </h3>
-<div class="new_consult" >
-  <div class="d-flex justify-content-center m-3" >
-    <div >
-      <%= simple_form_for @consultation do |f| %>
-        <div class="consultation_new">
-          <%= f.input :patient_id,
-                      collection: Patient.all.order(last_name: :asc),
-                      label: " Patient(e) ",
-                      label_method: :display_full_name,
-                      value_method: :id,
-                      placeholder: " ",
-                      wrapper_html: { class:"input-groupe" },
-                      input_html: { class:"input" },
-                      label_html: { class:"user-label" } %>
-        </div>
-        <div class="consultation_new">
-          <%= f.input :start_date, label: "Date & heure", placeholder: " ",
-                      as: :datetime,
-                      html5: true,
-                      label: false,
-                      required: false,
-                      wrapper_html: { class:" datefield-without-calendar"},
-                      input_html: { class:"input" },
-                      label_html: { class:"user-label" } %>
-        </div>
+<%# AJOUT CONSULTATION PAGE %>
+<div class="back-black-button">
+  <% if params[:patient_id].nil?  %>
+    <%= link_to consultations_path do %>
+      <%= image_tag "icones/retour.svg" %>
+    <% end %>
+  <% else  %>
+    <%= link_to patient_path(params[:patient_id]) do %>
+      <%= image_tag "icones/retour.svg" %>
+    <% end %>
+  <% end  %>
+</div>
 
+<div class="general-div">
 
-        <%# START - Checkbox and end_date field to make the consultation recurrent %>
-          <%# Checkbox %>
-          <div class="" data-controller="edit">
-            <div>
-              <div class="consultation_new" data-action="click->edit#displayForm">
-                <%= f.input :recurring,
-                            as: :boolean,
-                            checked_value: true,
-                            boolean_style: :inline,
-                            include_hidden: false,
-                            label: " Soin régulier ?",
-                            placeholder: " ",
-                            wrapper_html: { class:"input-groupe" },
-                            input_html: { class:"" },
-                            label_html: { class:"" } %>
-              </div>
-            </div>
+  <h3> NOUVELLE <br> CONSULTATION </h3>
+    <%= simple_form_for @consultation do |f| %>
+      <div class="consultation_new">
+        <%= f.input :patient_id,
+                    collection: Patient.select_patient_by_group(current_user),
+                    label: " Patient(e) ",
+                    label_method: :display_full_name,
+                    value_method: :id,
+                    placeholder: " ",
+                    wrapper_html: { class:"input-groupe" },
+                    input_html: { class:"input" },
+                    label_html: { class:"user-label" } %>
+      </div>
+      <div class="consultation_new">
+        <%= f.input :start_date,
+                    label: "Date & heure",
+                    placeholder: " ",
+                    as: :datetime,
+                    html5: true,
+                    label: false,
+                    required: false,
+                    wrapper_html: { class:" datefield-without-calendar"},
+                    input_html: { class:"input" },
+                    label_html: { class:"user-label" } %>
+      </div>
 
-            <div class="d-none" data-edit-target="form">
-              <%# end_date %>
-              <%= f.simple_fields_for :consultation_groups do |m| %>
-                <div class="consultation_new">
-                  <%= m.input :end_date, label: "Date & heure", placeholder: " ",
-                              as: :date,
-                              html5: true,
-                              label: false,
-                              required: false,
-                              wrapper_html: { class:" datefield-without-calendar"},
-                              input_html: { class:"input" },
-                              label_html: { class:"user-label" } %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <%# END - Checkbox and end_date field to make the consultation recurrent %>
+      <%# Checkbox %>
+      <%= render "checkbox_recurence", frequency: @frequency, f: f %>
 
+      <div class="consultation_new">
+        <%= f.input :user_id,
+                    collection: @users_of_team,
+                    label: " Infirmier(e) ",
+                    label_method: :display_full_name,
+                    value_method: :id,
+                    selected: current_user,
+                    placeholder: " ",
+                    wrapper_html: { class:"input-groupe" },
+                    input_html: { class:"input" },
+                    label_html: { class:"user-label" } %>
+      </div>
 
-        <div class="consultation_new">
-          <%= f.input :user_id,
-                      collection: @users_of_team,
-                      label: " Infirmier(e) ",
-                      label_method: :display_full_name,
-                      value_method: :id,
-                      selected: current_user,
-                      placeholder: " ",
-                      wrapper_html: { class:"input-groupe" },
-                      input_html: { class:"input" },
-                      label_html: { class:"user-label" } %>
-        </div>
-        <div class="text-center">
-          <p>Votre patient n'apparait pas dans la liste? Créez le !</p>
-          <%= link_to "Créer un patient", new_patient_path,class:"btn btn-add-treatment"%>
-        </div>
+      <div class="d-flex justify-content-center">
+        <%= f.button :submit, "CRÉER UNE CONSULTATION", class: "btn" %>
+      </div>
 
-        <div class="d-flex justify-content-center">
-          <%= f.button :submit, "Créer une consultation", class: "btn-submit" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+      <div class="details-new-consultation">
+        <p>Votre patient n'apparait pas dans la liste? <br>
+        <%= link_to "Créer le!", new_patient_path%></p>
+      </div>
+    <% end %>
 </div>
